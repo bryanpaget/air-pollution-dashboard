@@ -10,6 +10,9 @@ periods <- c("2020",
              "2016H1",
              "2015H1")
 
+species_names <- list("co" = "Carbon Monoxide",
+                      "no2" = "Nitrogen Dioxide",
+                      "so2" = "Sulfur Dioxide")
 
 getData <- function(periods) {
   dfs <- list()
@@ -31,10 +34,14 @@ colorful_plot <- function(df, df_compare, species, color) {
   df <- df() %>% filter(Specie == species)
   df_compare <- df_compare() %>% filter(Specie == species)
   
+  year <- lubridate::year(df[["Date"]][1])
+  
   ggplot() + 
     geom_line(data = df, aes(x = Date, y = median), color = color) +
     ylim(0, max(c(max(df[["median"]]), max(df_compare[["median"]])))) +
-    xlab('Date') +
-    ylab(species)
+    labs(title = species_names[[species]],
+         x = paste("Months from the Year: ", year),
+         y = paste(species_names[[species]], "Levels")) +
+    theme(plot.title = element_text(face="bold", size=16, hjust = 0.5))
 
 }

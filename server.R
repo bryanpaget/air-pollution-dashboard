@@ -22,19 +22,16 @@ function(input, output, session) {
     eventExpr = input$left_country,
     handlerExpr = {
       choice <- left_df() %>% select(City) %>% unique()
-      updateSelectInput(session, "left_city", choices = choice)
+      updateSelectInput(session, "left_city", choices = choice, selected = "Toronto")
       })
 
   observeEvent(
     eventExpr = input$right_country,
     handlerExpr = {
       choice <- right_df() %>% select(City) %>% unique()
-      updateSelectInput(session, "right_city", choices = choice)
+      updateSelectInput(session, "right_city", choices = choice, selected = "Toronto")
       })
   
-  output$left_plot_aqi <- renderPlot({
-    colorful_plot(left_plot_df, right_plot_df, "temperature", "green")
-  })  
   output$left_plot_co <- renderPlot({
     colorful_plot(left_plot_df, right_plot_df, "co", "red")
   })
@@ -45,9 +42,6 @@ function(input, output, session) {
     colorful_plot(left_plot_df, right_plot_df, "so2", "purple")
   })
   
-  output$right_plot_aqi <- renderPlot({
-    colorful_plot(right_plot_df, left_plot_df, "temperature", "green")
-  })
   output$right_plot_co <- renderPlot({
     colorful_plot(right_plot_df, left_plot_df, "co", "red")
   })
