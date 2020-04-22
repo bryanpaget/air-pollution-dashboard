@@ -32,12 +32,30 @@ function(input, output, session) {
       updateSelectInput(session, "right_city", choices = choice)
       })
   
-  output$left_plot <- renderPlot({
-    colorful_plot(left_plot_df)
+  output$left_plot_aqi <- renderPlot({
+    colorful_plot(left_plot_df, right_plot_df, "temperature", "green")
+  })  
+  output$left_plot_co <- renderPlot({
+    colorful_plot(left_plot_df, right_plot_df, "co", "red")
+  })
+  output$left_plot_no2 <- renderPlot({
+    colorful_plot(left_plot_df, right_plot_df, "no2", "blue")
+  })
+  output$left_plot_so2 <- renderPlot({
+    colorful_plot(left_plot_df, right_plot_df, "so2", "purple")
   })
   
-  output$right_plot <- renderPlot({
-    colorful_plot(right_plot_df)
+  output$right_plot_aqi <- renderPlot({
+    colorful_plot(right_plot_df, left_plot_df, "temperature", "green")
+  })
+  output$right_plot_co <- renderPlot({
+    colorful_plot(right_plot_df, left_plot_df, "co", "red")
+  })
+  output$right_plot_no2 <- renderPlot({
+    colorful_plot(right_plot_df, left_plot_df, "no2", "blue")
+  })
+  output$right_plot_so2 <- renderPlot({
+    colorful_plot(right_plot_df, left_plot_df, "so2", "purple")
   })
   
 }
